@@ -34,7 +34,7 @@ export type CmdJTaskSourceUrl =
   | { provider: 'jira'; parsed: ParsedJiraIssueUrl }
 
 export type CmdJTaskUrlCreatePreview = {
-  provider: Extract<TaskProvider, 'github' | 'gitlab' | 'jira'>
+  provider: Exclude<TaskProvider, 'linear'>
   identifier: string
   subtitle: string
   createLabel: string
