@@ -223,6 +223,22 @@ describe('remote snapshot replay onto a live alt screen', () => {
     }
   })
 
+  // Why: an image without its grid cannot prove the pane's history continues its screen.
+  it('replaces history when the host image has no grid', async () => {
+    const client = await render([
+      LIVE_PANE,
+      ...(await drainOntoLiveAltScreen(recoveryPayload(ROWS), { carriesNormalBuffer: true }))
+    ])
+    const fresh = await render([pushedImage(ROWS)])
+    try {
+      expect(viewport(client, 'alternate')).toEqual(viewport(fresh, 'alternate'))
+      expect(bufferLines(client, 'normal')).toEqual(bufferLines(fresh, 'normal'))
+    } finally {
+      client.dispose()
+      fresh.dispose()
+    }
+  })
+
   // Why: once the host's TUI exits, the shell writes past the pane's history, so the
   // image replaces it instead of leaving a gap above the host's screen.
   it('replaces history once the host proves the TUI exited', async () => {

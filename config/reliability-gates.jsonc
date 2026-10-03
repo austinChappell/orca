@@ -16974,6 +16974,7 @@
           "assertions": [
             "repaints a pushed image exactly and keeps the history the TUI covers",
             "replaces history exactly when the host screen has another grid",
+            "replaces history when the host image has no grid",
             "replaces history once the host proves the TUI exited",
             "clears a raw byte replay in place on the alt screen",
             "paints a requested image exactly over a live alt screen"

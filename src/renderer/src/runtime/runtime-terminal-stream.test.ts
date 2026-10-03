@@ -590,8 +590,8 @@ describe('remote runtime terminal multiplex ACK gate', () => {
       'recovered state'
     )
     // Why: an unsolicited recovery snapshot replaces terminal state, so it
-    // clears screen and scrollback first and must not replay the subscribe
-    // lifecycle.
+    // clears the screen first (not scrollback: the image carries only its
+    // screen) and must not replay the subscribe lifecycle.
     expect(onSnapshot).toHaveBeenCalledWith(`\x1b[?2026l\x1b[2J\x1b[H${'recovered state'}`, {
       pendingEscapeTailAnsi: undefined,
       cols: 120,

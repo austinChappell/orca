@@ -118,9 +118,9 @@ export function bindReplayDataDrain(session: ConnectPanePtySession): void {
       }
       const sourceGrid = resolvePositiveTerminalDimensions(snapshotCols, snapshotRows)
       const paneAtSourceGrid = (): boolean =>
-        !sourceGrid ||
-        (session.pane.terminal.cols === sourceGrid.cols &&
-          session.pane.terminal.rows === sourceGrid.rows)
+        sourceGrid !== null &&
+        session.pane.terminal.cols === sourceGrid.cols &&
+        session.pane.terminal.rows === sourceGrid.rows
       // Why ahead of the source-grid resize: dropping the scrollback first
       // spares a reflow of history the very next sequence discards (see
       // use-terminal-container-fit-sync.ts on its cost).
@@ -142,7 +142,7 @@ export function bindReplayDataDrain(session: ConnectPanePtySession): void {
               paneOnAlternateScreen,
               // Why: a pushed image carries only its screen. Until the host proves
               // the TUI exited (shell owner), the normal buffer is frozen, so the
-              // pane's history continues that screen exactly on a shared grid.
+              // pane's history continues that screen exactly on a proven shared grid.
               keepScrollback:
                 paneOnAlternateScreen && terminalOwner !== 'shell' && paneAtSourceGrid()
             })
