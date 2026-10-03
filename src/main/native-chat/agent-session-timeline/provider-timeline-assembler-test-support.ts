@@ -6,8 +6,9 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { agentJournalItemKey } from '../../../shared/agent-session-journal-item-key'
 import type {
-  AgentJournalItemBody,
+  AgentJournalMessageItem,
   AgentJournalRenderItem,
+  AgentJournalToolCallItem,
   AgentJournalTurnLifecycle
 } from '../../../shared/agent-session-journal-types'
 import { readAgentJournalTurn } from '../../../shared/agent-session-turn-record'
@@ -41,11 +42,11 @@ export function providerTurnItemId(turnKey: string): string {
   return agentJournalItemKey(scheme.turn({ source: 'provider', value: turnKey }))
 }
 
-export function runningTool(name: string): AgentJournalItemBody {
+export function runningTool(name: string): AgentJournalToolCallItem {
   return { kind: 'tool-call', name, input: { name }, state: 'running' }
 }
 
-export function assistantText(text: string): AgentJournalItemBody {
+export function assistantText(text: string): AgentJournalMessageItem {
   return { kind: 'message', role: 'assistant', blocks: [{ type: 'text', text }] }
 }
 

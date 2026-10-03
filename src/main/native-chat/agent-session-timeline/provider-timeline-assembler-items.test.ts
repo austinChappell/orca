@@ -1,5 +1,8 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import type { AgentJournalItemBody } from '../../../shared/agent-session-journal-types'
+import type {
+  AgentJournalItemBody,
+  AgentJournalPlainStatusItem
+} from '../../../shared/agent-session-journal-types'
 import {
   assistantText,
   closeProviderTimelineRigs,
@@ -11,7 +14,7 @@ import {
 
 afterEach(closeProviderTimelineRigs)
 
-const plan = (text: string): AgentJournalItemBody => ({
+const plan = (text: string): AgentJournalPlainStatusItem => ({
   kind: 'status',
   text,
   presentation: 'plan-document'
