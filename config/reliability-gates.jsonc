@@ -16959,14 +16959,15 @@
       "oracle": "Apply snapshots onto adversarially dirty pane states (already on the alternate screen, stale content occupying cells the new frame leaves blank, scrollback present, wide glyphs, revived sessions with restarted PTY seq counters) and assert exact buffer equality with the snapshot frame; fault injection interleaves hidden chunks, live output, metadata-only replay, and clear-before-replay, then asserts ordered terminal buffer content, clear decisions, and replay diagnostics. Marker-presence checks are not acceptable evidence on restore paths.",
       "commands": [
         "pnpm exec vitest run --config config/vitest.config.ts src/renderer/src/components/terminal-pane/pty-connection-hidden-backlog-snapshot.test.ts src/renderer/src/components/terminal-pane/pty-connection-hidden-output-restore.test.ts src/renderer/src/components/terminal-pane/pty-connection-stalled-hidden-restore.test.ts src/renderer/src/components/terminal-pane/pty-connection-replay-payload-handling.test.ts",
-        "pnpm exec vitest run --config config/vitest.config.ts src/renderer/src/components/terminal-pane/remote-snapshot-alt-screen-replay.test.ts"
+        "pnpm exec vitest run --config config/vitest.config.ts src/renderer/src/components/terminal-pane/remote-snapshot-alt-screen-replay.test.ts src/renderer/src/components/terminal-pane/remote-snapshot-alt-screen-host-chain.test.ts"
       ],
       "testFiles": [
         "src/renderer/src/components/terminal-pane/pty-connection-hidden-backlog-snapshot.test.ts",
         "src/renderer/src/components/terminal-pane/pty-connection-hidden-output-restore.test.ts",
         "src/renderer/src/components/terminal-pane/pty-connection-stalled-hidden-restore.test.ts",
         "src/renderer/src/components/terminal-pane/pty-connection-replay-payload-handling.test.ts",
-        "src/renderer/src/components/terminal-pane/remote-snapshot-alt-screen-replay.test.ts"
+        "src/renderer/src/components/terminal-pane/remote-snapshot-alt-screen-replay.test.ts",
+        "src/renderer/src/components/terminal-pane/remote-snapshot-alt-screen-host-chain.test.ts"
       ],
       "assertionRefs": [
         {
@@ -16978,6 +16979,13 @@
             "replaces history once the host proves the TUI exited",
             "clears a raw byte replay in place on the alt screen",
             "paints a requested image exactly over a live alt screen"
+          ]
+        },
+        {
+          "file": "src/renderer/src/components/terminal-pane/remote-snapshot-alt-screen-host-chain.test.ts",
+          "assertions": [
+            "keeps the covered history for a live TUI exactly as the host holds it",
+            "replaces history once the host proves the TUI exited"
           ]
         },
         {
